@@ -16,7 +16,7 @@ console.log(map.hasOwnProperty("one"));
 
 let map = {one: true, two: true, hasOwnProperty: this.hasOwnProperty};
 
-console.log(map.hasOwnProperty("one"));
-console.log(map.hasOwnProperty("two"));
-console.log(map.hasOwnProperty("three"));
-console.log(map.hasOwnProperty("hasOwnProperty"));
+console.log(map.hasOwnProperty("one")); //true
+console.log(map.hasOwnProperty("two")); //true
+console.log(map.hasOwnProperty("three")); //false
+console.log(map.hasOwnProperty("hasOwnProperty")); //true
