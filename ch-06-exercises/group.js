@@ -29,3 +29,60 @@
     console.log(group.has(10));
     // → false
  */
+
+require("./resources/deep-comparison.js");
+
+class Group {
+
+    constructor() {
+        this.elements = [];
+    }
+
+    static from(iterable) {
+        let g = new Group();
+        for (let i of iterable) {
+            g.add(i);
+        }
+        return g;
+    }
+
+    add(value) {
+        if (!this.elements.includes(value)) {
+            this.elements.push(value);
+        }
+    }
+
+    delete(value) {
+        if (this.elements.includes(value)) {
+            this.elements.splice(this.elements.indexOf(value), 1);
+        }
+    }
+
+    has(value) {
+        for (let i of this.elements) {
+            if (Comparator.deepEqual(i, value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+let group = new Group();
+group.add(2);
+group.add(3);
+console.log(group);
+console.log(group.has(1)); //false
+console.log(group.has(2)); //true
+console.log(group);
+group.delete(2);
+console.log(group);
+console.log(group.has(2)); //false
+
+let group2 = Group.from([{name: 'name', val: 1}, {name: 'name2', val: 2}, {name: 'name3', val: 3}, {
+    name: 'name4',
+    val: 4
+}]);
+console.log(group2);
+console.log(group2.has({name: 'name', val: 1})); //true
+console.log(group2.has({name: 'name', val: 8})); //false
