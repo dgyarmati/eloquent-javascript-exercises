@@ -17,3 +17,29 @@
     // → b
     // → c
  */
+
+require("./resources/group.js");
+
+class GroupIterator {
+    constructor(group) {
+        this.group = group;
+        this.currentIndex = 0;
+    }
+
+    next() {
+        let currentElement = this.group.elements[this.currentIndex];
+        if (currentElement === undefined) {
+            return {done: true};
+        }
+        this.currentIndex++;
+        return {value: currentElement, done: false};
+    }
+}
+
+Group.prototype[Symbol.iterator] = function () {
+    return new GroupIterator(this);
+};
+
+for (let element of Group.from(["a", "b", "c"])) {
+    console.log(element);
+}

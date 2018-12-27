@@ -30,7 +30,7 @@
     // → false
  */
 
-require("./resources/comparator.js");
+require("./comparator.js");
 
 class Group {
 
@@ -68,21 +68,9 @@ class Group {
     }
 }
 
-let group = new Group();
-group.add(2);
-group.add(3);
-console.log(group);
-console.log(group.has(1)); //false
-console.log(group.has(2)); //true
-console.log(group);
-group.delete(2);
-console.log(group);
-console.log(group.has(2)); //false
-
-let group2 = Group.from([{name: 'name', val: 1}, {name: 'name2', val: 2}, {name: 'name3', val: 3}, {
-    name: 'name4',
-    val: 4
-}]);
-console.log(group2);
-console.log(group2.has({name: 'name', val: 1})); //true
-console.log(group2.has({name: 'name', val: 8})); //false
+// This makes sure the data is exported in node.js —
+// `require('./path/to/scripts.js')` will get you the method.
+if (typeof module != "undefined" && module.exports && (typeof window == "undefined" || window.exports != exports))
+    module.exports = Group;
+if (typeof global != "undefined" && !global.Group)
+    global.Group = Group;
