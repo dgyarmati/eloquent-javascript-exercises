@@ -13,3 +13,10 @@ let map = {one: true, two: true, hasOwnProperty: true};
 console.log(map.hasOwnProperty("one"));
 // → true
  */
+
+let map = {one: true, two: true, hasOwnProperty: this.hasOwnProperty};
+
+console.log(map.hasOwnProperty("one"));
+console.log(map.hasOwnProperty("two"));
+console.log(map.hasOwnProperty("three"));
+console.log(map.hasOwnProperty("hasOwnProperty"));
