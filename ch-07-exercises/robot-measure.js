@@ -141,7 +141,7 @@ function goalOrientedRobot({place, parcels}, route) {
     compareRobots(routeRobot, [], goalOrientedRobot, []);
  */
 
-function runRobotWithMemoryOutput(state, robot, memory) {
+function countRobotSteps(state, robot, memory) {
     for (let turn = 0; ; turn++) {
         if (state.parcels.length == 0) {
             return turn;
@@ -168,10 +168,10 @@ function compareRobots(robot1, memory1, robot2, memory2) {
     robot1steps = robot2steps = 0;
 
     for (let task of tasks) {
-        robot1steps = robot1steps + runRobotWithMemoryOutput(task, robot1, memory1);
+        robot1steps = robot1steps + countRobotSteps(task, robot1, memory1);
     }
     for (let task of tasks) {
-        robot2steps = robot2steps + runRobotWithMemoryOutput(task, robot2, memory2);
+        robot2steps = robot2steps + countRobotSteps(task, robot2, memory2);
     }
 
     return {
