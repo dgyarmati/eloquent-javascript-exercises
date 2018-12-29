@@ -29,3 +29,66 @@
     // → false
     console.log(b.has("a"));
  */
+
+require("../ch-06-exercises/resources/comparator.js");
+
+class PGroup {
+
+    constructor(elements) {
+        this.elements = elements;
+    }
+
+    static from(iterable) {
+        let g = new Group();
+        for (let i of iterable) {
+            g.add(i);
+        }
+        return g;
+    }
+
+    add(value) {
+        if (this.elements === undefined) {
+            this.elements = [];
+        }
+        let pGroup = new PGroup(this.elements.slice());
+        if (!pGroup.has(value)) {
+            pGroup.elements.push(value);
+        }
+        return pGroup;
+    }
+
+    delete(value) {
+        if (this.elements === undefined) {
+            this.elements = [];
+        }
+        let pGroup = new PGroup(this.elements.slice());
+        if (pGroup.has(value)) {
+            pGroup.elements.splice(this.elements.indexOf(value), 1);
+        }
+        return pGroup;
+    }
+
+    has(value) {
+        for (let i of this.elements) {
+            if (Comparator.deepEqual(i, value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+PGroup.empty = new PGroup();
+PGroup.empty.delete("a");
+
+let a = PGroup.empty.add("a");
+console.log(a);
+let ab = a.add("b");
+console.log(ab);
+let b = ab.delete("a");
+console.log(b);
+
+console.log(b.has("b")); // → true
+console.log(a.has("b")); // → false
+console.log(b.has("a")); // → false
+
