@@ -36,6 +36,8 @@ var VillageState = class VillageState {
         this.parcels = parcels;
     }
 
+    // if i can get from the post office to the destination...
+    //
     move(destination) {
         if (!roadGraph[this.place].includes(destination)) {
             return this;
@@ -49,7 +51,7 @@ var VillageState = class VillageState {
     }
 };
 
-function runRobot(state, robot, memory) {
+function runRobot(state, robot, memory, longTermMemory) {
     for (let turn = 0; ; turn++) {
         if (state.parcels.length == 0) {
             console.log(`Done in ${turn} turns`);
@@ -98,6 +100,8 @@ function routeRobot(state, memory) {
     return {direction: memory[0], memory: memory.slice(1)};
 }
 
+// it goes thru all arrays behind a key
+// first
 function findRoute(graph, from, to) {
     let work = [{at: from, route: []}];
     for (let i = 0; i < work.length; i++) {
@@ -141,6 +145,7 @@ function goalOrientedRobot({place, parcels}, route) {
     compareRobots(routeRobot, [], goalOrientedRobot, []);
  */
 
+
 function countRobotSteps(state, robot, memory) {
     for (let turn = 0; ; turn++) {
         if (state.parcels.length == 0) {
@@ -154,7 +159,7 @@ function countRobotSteps(state, robot, memory) {
 
 function generateTasks() {
     let tasks = [];
-    for (let i = 0; i <= 100; i++) {
+    for (let i = 0; i < 100; i++) {
         let task = VillageState.random();
         tasks.push(task);
     }
@@ -168,10 +173,10 @@ function compareRobots(robot1, memory1, robot2, memory2) {
     robot1steps = robot2steps = 0;
 
     for (let task of tasks) {
-        robot1steps = robot1steps + countRobotSteps(task, robot1, memory1);
+        robot1steps += countRobotSteps(task, robot1, memory1);
     }
     for (let task of tasks) {
-        robot2steps = robot2steps + countRobotSteps(task, robot2, memory2);
+        robot2steps += countRobotSteps(task, robot2, memory2);
     }
 
     return {
